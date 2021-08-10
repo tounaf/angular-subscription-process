@@ -4,11 +4,26 @@
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="(isHandset$ | async) === false">
     <mat-toolbar>Menu</mat-toolbar>
-    <mat-nav-list>
-      <a mat-list-item routerLink="list">Type produit</a>
-      <a mat-list-item href="#">Link 2</a>
-      <a mat-list-item href="#">Link 3</a>
+    <mat-nav-list *ngFor="let menu of menusItems">
+      <mat-accordion>
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-icon>{{menu.icon}}</mat-icon>
+              {{menu.label}}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-list-item *ngFor="let child of menu.child">
+            <a mat-list-item [routerLink]="child.path" routerLinkActive="selected">
+              <span>{{child.label}}</span>
+            </a>
+            <mat-divider></mat-divider>
+          </mat-list-item>
+        </mat-expansion-panel>
+      </mat-accordion>
     </mat-nav-list>
+    <mat-divider></mat-divider>
+
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">
