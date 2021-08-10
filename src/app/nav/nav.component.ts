@@ -10,7 +10,7 @@ import {NavigationEnd, NavigationStart, RouteConfigLoadEnd, RouteConfigLoadStart
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss']
 })
-export class NavComponent implements OnInit, AfterContentInit {
+export class NavComponent implements OnInit {
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(

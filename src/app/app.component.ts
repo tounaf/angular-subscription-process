@@ -28,7 +28,6 @@ export class AppComponent implements OnInit, AfterContentInit {
       if (event instanceof NavigationStart) {
         this.showLoader = true;
       } else if (event instanceof NavigationEnd) {
-        console.log(event)
         this.showLoader = false;
         cdRef.detectChanges();
       }
