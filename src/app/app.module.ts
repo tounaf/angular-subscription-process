@@ -17,7 +17,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { NotFoundComponent } from './not-found/not-found.component';
-import {MatExpansionModule} from '@angular/material';
+import {MatExpansionModule, MatProgressSpinnerModule} from '@angular/material';
+import {HttpClientModule} from '@angular/common/http';
+import {AtomSpinnerModule, FlowerSpinnerModule, FulfillingBouncingCircleSpinnerModule} from 'angular-epic-spinners';
 
 @NgModule({
   declarations: [
@@ -40,6 +42,11 @@ import {MatExpansionModule} from '@angular/material';
     MatSidenavModule,
     MatListModule,
     MatExpansionModule,
+    BrowserModule,
+    HttpClientModule,
+    MatProgressSpinnerModule,
+    FlowerSpinnerModule,
+    FulfillingBouncingCircleSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
