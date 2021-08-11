@@ -22,7 +22,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {
   AtomSpinnerModule,
   FlowerSpinnerModule,
-  FulfillingBouncingCircleSpinnerModule,
+  FulfillingBouncingCircleSpinnerModule, RadarSpinnerModule,
   TrinityRingsSpinnerModule
 } from 'angular-epic-spinners';
 import {InjectTokenInterceptor} from './interceptors/inject-token-interceptor';
@@ -54,7 +54,8 @@ import {LoaderService} from './service/loader.service';
     MatProgressSpinnerModule,
     // FlowerSpinnerModule,
     // FulfillingBouncingCircleSpinnerModule
-    TrinityRingsSpinnerModule
+    // TrinityRingsSpinnerModule,
+    RadarSpinnerModule
   ],
   providers: [
     {
