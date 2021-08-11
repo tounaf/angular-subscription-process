@@ -1,6 +1,7 @@
 import {AfterContentInit, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {HttpClientService} from './service/http-client.service';
-import {NavigationEnd, NavigationStart, Router} from '@angular/router';
+import {NavigationEnd, NavigationStart, RouteConfigLoadEnd, RouteConfigLoadStart, Router, Scroll} from '@angular/router';
+import {LoaderService} from './service/loader.service';
 
 @Component({
   selector: 'app-root',
@@ -13,24 +14,36 @@ export class AppComponent implements OnInit, AfterContentInit {
   constructor(
     private httpClient: HttpClientService,
     private router: Router,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    private loader: LoaderService
   ) {}
   showLoader: boolean;
   ngOnInit() {
-    this.httpClient.get('http://localhost:8000/api/sites/2').subscribe((resp) => {
-      console.log(resp);
+    this.httpClient.get('http://localhost:8000/api/sites').subscribe((resp) => {
+      const data = resp;
+      console.log(data);
     });
   }
 
   ngAfterContentInit() {
     this.router.events.subscribe(event => {
-      this.showLoader = true
-      if (event instanceof NavigationStart) {
+      /*console.log('Event ==========>' , event);
+      this.showLoader = true;
+      if (event instanceof RouteConfigLoadStart) {
+        console.log('start event ===========> ', event);
         this.showLoader = true;
-      } else if (event instanceof NavigationEnd) {
+      } else if (event instanceof RouteConfigLoadEnd || event instanceof NavigationEnd) {
+        console.log('end event ', event)
         this.showLoader = false;
-        cdRef.detectChanges();
-      }
+        this.cdRef.detectChanges();
+      }*/
+    });
+
+    this.loader.next.subscribe(value => {
+      console.log(value);
+      this.showLoader = value;
+      this.cdRef.detectChanges();
+      console.log('SHOW LOADER ============>', this.showLoader);
     });
   }
 }

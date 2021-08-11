@@ -18,8 +18,15 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { NotFoundComponent } from './not-found/not-found.component';
 import {MatExpansionModule, MatProgressSpinnerModule} from '@angular/material';
-import {HttpClientModule} from '@angular/common/http';
-import {AtomSpinnerModule, FlowerSpinnerModule, FulfillingBouncingCircleSpinnerModule} from 'angular-epic-spinners';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {
+  AtomSpinnerModule,
+  FlowerSpinnerModule,
+  FulfillingBouncingCircleSpinnerModule,
+  TrinityRingsSpinnerModule
+} from 'angular-epic-spinners';
+import {InjectTokenInterceptor} from './interceptors/inject-token-interceptor';
+import {LoaderService} from './service/loader.service';
 
 @NgModule({
   declarations: [
@@ -45,10 +52,18 @@ import {AtomSpinnerModule, FlowerSpinnerModule, FulfillingBouncingCircleSpinnerM
     BrowserModule,
     HttpClientModule,
     MatProgressSpinnerModule,
-    FlowerSpinnerModule,
-    FulfillingBouncingCircleSpinnerModule
+    // FlowerSpinnerModule,
+    // FulfillingBouncingCircleSpinnerModule
+    TrinityRingsSpinnerModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InjectTokenInterceptor,
+      multi: true
+    },
+    LoaderService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
