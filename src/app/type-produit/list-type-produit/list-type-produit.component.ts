@@ -7,7 +7,8 @@ import {HttpClientService} from '../../service/http-client.service';
   styleUrls: ['./list-type-produit.component.scss']
 })
 export class ListTypeProduitComponent implements OnInit {
-
+  username: string = "FETRA";
+  lastname: string = "Nambinina";
   constructor(
     private httpClient: HttpClientService
   ) { }

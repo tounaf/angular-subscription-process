@@ -6,10 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./list-user.component.scss']
 })
 export class ListUserComponent implements OnInit {
-
+  username: string = 'MON SUPER NAME'
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onClick() {
+    alert('salut');
   }
 
 }
