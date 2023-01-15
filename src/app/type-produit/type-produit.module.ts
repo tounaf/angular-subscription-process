@@ -10,6 +10,18 @@ import {NotFoundComponent} from '../not-found/not-found.component';
 import { MatFormFieldModule, MatInputModule } from '@angular/material';
 
 
+import {  ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+
+import { MatOptionModule,MatIconModule,
+    MatTabsModule,
+    MatCheckboxModule,
+   MatSelectModule, MatGridListModule, MatCardModule } from '@angular/material';
+
+
+
+
+
 @NgModule({
   declarations: [TypeProduitComponent, ListTypeProduitComponent, EditTypeProduitComponent],
   imports: [
@@ -18,7 +30,19 @@ import { MatFormFieldModule, MatInputModule } from '@angular/material';
     RouterModule,
     MatFormFieldModule,
     MatInputModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatOptionModule,
+    MatSelectModule,
+    MatGridListModule,
+    MatCardModule,
+    MatIconModule,
+    MatTabsModule,
+    MatCheckboxModule,
+
   ]
 })
 export class TypeProduitModule { }

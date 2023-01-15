@@ -1,5 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { 
+  FormsModule,
+  ReactiveFormsModule, } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,7 +20,12 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { NotFoundComponent } from './not-found/not-found.component';
-import {MatExpansionModule, MatProgressSpinnerModule} from '@angular/material';
+import {MatExpansionModule, MatProgressSpinnerModule, MatFormFieldModule,
+  MatInputModule,
+  MatOptionModule,
+  MatSelectModule,
+  
+} from '@angular/material';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {
   AtomSpinnerModule,
@@ -27,6 +35,7 @@ import {
 } from 'angular-epic-spinners';
 import {InjectTokenInterceptor} from './interceptors/inject-token-interceptor';
 import {LoaderService} from './service/loader.service';
+import { LoginModule } from './login/login.module';
 
 @NgModule({
   declarations: [
@@ -35,6 +44,7 @@ import {LoaderService} from './service/loader.service';
     NavComponent,
   ],
   imports: [
+    LoginModule,
     TypeProduitModule,
     BrowserModule,
     AppRoutingModule,
@@ -52,6 +62,19 @@ import {LoaderService} from './service/loader.service';
     BrowserModule,
     HttpClientModule,
     MatProgressSpinnerModule,
+    
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatOptionModule,
+    MatSelectModule,
+    MatGridListModule,
+    MatCardModule,
+    MatIconModule,
     // FlowerSpinnerModule,
     // FulfillingBouncingCircleSpinnerModule
     // TrinityRingsSpinnerModule,

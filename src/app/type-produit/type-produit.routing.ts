@@ -21,6 +21,11 @@ const routes: Routes = [
         path: Route.edit + '/:id',
         component: EditTypeProduitComponent
       },
+      
+      {
+        path: Route.edit,
+        component: EditTypeProduitComponent
+      },
       {path: '**', redirectTo: Route.not_found},
       {path: Route.not_found, component: NotFoundComponent, data: {breadcrumb: 'Page introuvable'}},
     ]

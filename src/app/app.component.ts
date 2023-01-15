@@ -11,6 +11,7 @@ import {LoaderService} from './service/loader.service';
 export class AppComponent implements OnInit, AfterContentInit {
 
   title = 'angular-experiment';
+  currentUser: any;
   constructor(
     private httpClient: HttpClientService,
     private router: Router,
@@ -19,7 +20,12 @@ export class AppComponent implements OnInit, AfterContentInit {
   ) {}
   showLoader: boolean;
   ngOnInit() {
-    this.httpClient.get('http://localhost:8000/api/sites').subscribe((resp) => {
+    localStorage.setItem('token', JSON.stringify({"token":"kkljl"}));
+    this.currentUser = JSON.parse(localStorage.getItem('token')).token;
+    //if(isNullOrUndefined(this.currentUser)) {
+     // this.router.navigateByUrl('login');
+    //}
+    this.httpClient.get('/api/sites').subscribe((resp) => {
       const data = resp;
       console.log(data);
     });
