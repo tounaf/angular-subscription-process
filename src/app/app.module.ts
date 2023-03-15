@@ -7,19 +7,18 @@ import {
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {TypeProduitModule} from './type-produit/type-produit.module';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { LayoutModule } from '@angular/cdk/layout';
-import { NavComponent } from './nav/nav.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
-import { NotFoundComponent } from './not-found/not-found.component';
+import { MatStepperModule } from "@angular/material/stepper";
+import { MatRadioModule } from "@angular/material/radio";
+import { MatCheckboxModule } from "@angular/material/checkbox";
 import {MatExpansionModule, MatProgressSpinnerModule, MatFormFieldModule,
   MatInputModule,
   MatOptionModule,
@@ -33,19 +32,14 @@ import {
   FulfillingBouncingCircleSpinnerModule, RadarSpinnerModule,
   TrinityRingsSpinnerModule
 } from 'angular-epic-spinners';
-import {InjectTokenInterceptor} from './interceptors/inject-token-interceptor';
-import {LoaderService} from './service/loader.service';
-import { LoginModule } from './login/login.module';
+import { SubscriptionProcessComponent } from './subscription-process/subscription-process.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardComponent,
-    NavComponent,
+    SubscriptionProcessComponent,
   ],
   imports: [
-    LoginModule,
-    TypeProduitModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -75,18 +69,16 @@ import { LoginModule } from './login/login.module';
     MatGridListModule,
     MatCardModule,
     MatIconModule,
+    MatStepperModule,
+    MatRadioModule,
+    MatCheckboxModule,
+  
     // FlowerSpinnerModule,
     // FulfillingBouncingCircleSpinnerModule
     // TrinityRingsSpinnerModule,
     RadarSpinnerModule
   ],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: InjectTokenInterceptor,
-      multi: true
-    },
-    LoaderService
   ],
   bootstrap: [AppComponent]
 })

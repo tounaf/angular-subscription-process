@@ -1,0 +1,184 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            
+            <mat-card class="example-card">
+
+                <mat-card-header>
+                    <div mat-card-avatar class="example-header-image"></div>
+                    <mat-card-title>Subscription process</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+
+                    <mat-horizontal-stepper [linear]="isLinear" #stepper="matHorizontalStepper">
+
+                        <mat-step [stepControl]="settingsForm">
+                            <form [formGroup]="settingsForm">
+                                <ng-template matStepLabel>Subscription Parameters</ng-template>
+                                <mat-card>
+                                    <button mat-mini-fab (click)="addNewSubscription()">
+                                        <mat-icon class="add-course-btn">add</mat-icon>
+                                    </button>
+                                    <div class="col-md-8 add-lessons-form">
+                                        <ng-container formArrayName="subscriptions">
+                                            <ng-container
+                                                *ngFor="let lessonForm of subscriptions.controls; let i = index"
+                                                [formGroupName]="i">
+                                                <div class="row lesson-form-row">
+
+                                                    <mat-form-field class="col-md-4">
+                                                        <mat-label>Duration</mat-label>
+                                                        <mat-select formControlName="duration">
+                                                            <mat-option value="3">3 Months</mat-option>
+                                                            <mat-option value="6">6 Months</mat-option>
+                                                            <mat-option value="12">12 Months</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                    <mat-form-field class="col-md-4">
+                                                        <mat-label>Amount</mat-label>
+                                                        <mat-select formControlName="amount">
+                                                            <mat-option value="5">5 Gs</mat-option>
+                                                            <mat-option value="10">10 Gs</mat-option>
+                                                            <mat-option value="50">50 Gs</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                    <div class="col-md-2">
+                                                        <button mat-mini-fab (click)="removeSubscription(i)">
+                                                            <mat-icon class="delete-course-btn">delete_forever</mat-icon>
+                                                        </button>
+
+                                                    </div>
+
+                                                </div>
+                                            </ng-container>
+                                        </ng-container>
+
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <mat-label>Upfront : </mat-label>
+                                        <mat-radio-group aria-label="Select an option" formControlName="upfront">
+                                            <mat-radio-button value="yes">Yes</mat-radio-button>
+                                            <mat-radio-button value="no">No</mat-radio-button>
+                                        </mat-radio-group>
+                                    </div>
+                                </mat-card>
+
+
+
+                                <div>
+                                    <button mat-button matStepperNext [disabled]="!settingsForm.valid" (click)="onSubmitSettingForm()">Next</button>
+                                </div>
+                            </form>
+                        </mat-step>
+                        <mat-step [stepControl]="paymentStepFormGroup">
+                            <form [formGroup]="paymentStepFormGroup">
+                                <ng-template matStepLabel>Payment setting</ng-template>
+                                <div class="row">
+                                    <mat-form-field class="col-md-6">
+                                        <input matInput placeholder="Card number" formControlName="cardNumber" required>
+                                    </mat-form-field>
+                                    <mat-form-field class="col-md-2">
+                                        <input matInput placeholder="Card date" formControlName="cardExpiration" required>
+                                    </mat-form-field>
+                                    <mat-form-field class="col-md-4">
+                                        <input matInput placeholder="Security code" formControlName="cardSecurityCode"
+                                            required>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="row col-md-4">
+                                    <button mat-button matStepperPrevious>Back</button>
+                                    <button mat-button matStepperNext [disabled]="!paymentStepFormGroup.valid" (click)="onSubmitPaymentForm()">Next</button>
+                                </div>
+                            </form>
+                        </mat-step>
+
+                        <mat-step [stepControl]="confirmationStepFormGroup">
+                            <form [formGroup]="confirmationStepFormGroup">
+                                <ng-template matStepLabel>Payment setting</ng-template>
+                                <div class="row">
+                                    <mat-form-field class="col-md-6">
+                                        <input matInput placeholder="Your email" formControlName="email" required>
+                                    </mat-form-field>
+                                    <div class="col-md-offset-2">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <mat-checkbox formControlName="acceptTerm">Terms and conditions
+                                            agreement!</mat-checkbox>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <button mat-button matStepperPrevious>Back</button>
+                                    <button mat-button matStepperNext [disabled]="!confirmationStepFormGroup.valid" (click)="onSubmitConfirmationForm()">Confirm</button>
+                                </div>
+                            </form>
+                        </mat-step>
+
+                        <mat-step>
+                            <ng-template matStepLabel>Done</ng-template>
+                            You are now done.
+                            <div>
+                                <button mat-button matStepperPrevious>Back</button>
+                                <button mat-button (click)="stepper.reset()">Reset</button>
+                            </div>
+                        </mat-step>
+                    </mat-horizontal-stepper>
+                </mat-card-content>
+                <mat-card-footer>
+                        <mat-card class="info-card">
+                            <mat-card-header>
+                               <h3>Detail</h3>
+                               <hr>
+                            </mat-card-header>
+                            <mat-card-content>
+
+                                <div class="row">
+                                    <div class="col-md-12" *ngIf="subscription.upfront !== ''">
+                                        Upfront: {{subscription.upfront}}
+                                    </div>
+                                            
+                                    <div class="col-md-12" *ngIf="subscription.payment.cardNumber !== 0">
+                                        <p>Card number: {{subscription.payment.cardNumber}}</p>
+                                        <p>Card date: {{subscription.payment.cardExpiration}}</p>
+                                        <p>Card Security: {{subscription.payment.cardSecurityCode}}</p>
+                                        
+                                    </div>
+                                                
+                                    <div class="col-md-12" *ngIf="subscription.user.email !== ''">
+                                        <p>email: {{subscription.user.email}}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <table class="table table-striped">
+                                            <thead>
+                                                <th>Duration</th>
+                                                <th>Amout of Gs</th>
+                                                <th>Unit price</th>
+                                                <th>Price</th>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let plan of subscriptionsPlanSelected">
+                                                    <td>{{plan.month}} Months</td>
+                                                    <td>{{plan.amountGs}} Gs</td>
+                                                    <td>{{plan.unitPricePerGs}} Usd</td>
+                                                    <td>{{plan.amountPrice}} Usd</td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                    <td>Total</td>
+                                                    <td colspan="2"></td>
+                                                    <td>{{sumAmounts}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                </div>
+                            </mat-card-content>
+                               
+                        </mat-card>
+                </mat-card-footer>
+            </mat-card>
+        </div>
+    </div>
+</div>
