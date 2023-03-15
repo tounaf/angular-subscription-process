@@ -56,17 +56,11 @@ export class SubscriptionProcessComponent implements OnInit {
   REMISE = 10;
 
   subscriptionStepFormGroup: FormGroup;
-
   paymentStepFormGroup: FormGroup;
-
-
   confirmationStepFormGroup: FormGroup;
-
-  isLinear = true;
-
-
   settingsForm: FormGroup;
 
+  isLinear = true;
 
   constructor(
     private _settingFactory: SettingFormFactory,
@@ -84,7 +78,13 @@ export class SubscriptionProcessComponent implements OnInit {
   ngOnInit(): void {
     this.addNewSubscription();
   }
-
+  
+  initialize() {
+    this.subscriptionStepFormGroup = this._subscriptionSettingFactory.create();
+    this.confirmationStepFormGroup = this._confirmationFactory.create();
+    this.paymentStepFormGroup = this._paymentFactory.create();
+    this.settingsForm = this._settingFactory.create();
+  }
 
   get subscriptions() {
     return this.settingsForm.controls["subscriptions"] as FormArray;
@@ -149,6 +149,7 @@ export class SubscriptionProcessComponent implements OnInit {
     }
 
     this.subscription.user = this.user;
+    this.initialize();
   }
 
 }

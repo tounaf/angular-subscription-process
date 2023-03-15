@@ -1,0 +1,23 @@
+
+<table class="table table-striped">
+    <thead>
+        <th>Duration</th>
+        <th>Amout of Gs</th>
+        <th>Unit price</th>
+        <th>Price</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let plan of subscription">
+            <td>{{plan.month}} Months</td>
+            <td>{{plan.amountGs}} Gs</td>
+            <td>{{plan.unitPricePerGs}} Usd</td>
+            <td>{{plan.amountPrice}} Usd</td>
+            
+        </tr>
+        <tr>
+            <td>Total</td>
+            <td colspan="2"></td>
+            <td>{{total}}</td>
+        </tr>
+    </tbody>
+</table>

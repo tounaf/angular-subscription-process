@@ -119,10 +119,10 @@
                         <mat-step>
                             <ng-template matStepLabel>Done</ng-template>
                             You are now done.
-                            <div>
+                            <!-- <div>
                                 <button mat-button matStepperPrevious>Back</button>
                                 <button mat-button (click)="stepper.reset()">Reset</button>
-                            </div>
+                            </div> -->
                         </mat-step>
                     </mat-horizontal-stepper>
                 </mat-card-content>
@@ -135,44 +135,18 @@
                             <mat-card-content>
 
                                 <div class="row">
-                                    <div class="col-md-12" *ngIf="subscription.upfront !== ''">
-                                        Upfront: {{subscription.upfront}}
-                                    </div>
-                                            
-                                    <div class="col-md-12" *ngIf="subscription.payment.cardNumber !== 0">
-                                        <p>Card number: {{subscription.payment.cardNumber}}</p>
-                                        <p>Card date: {{subscription.payment.cardExpiration}}</p>
-                                        <p>Card Security: {{subscription.payment.cardSecurityCode}}</p>
-                                        
-                                    </div>
-                                                
-                                    <div class="col-md-12" *ngIf="subscription.user.email !== ''">
-                                        <p>email: {{subscription.user.email}}</p>
-                                    </div>
+                                        <app-subscription-payment-info [payment]="subscription.payment"></app-subscription-payment-info>
+                                        <div class="col-md-12" *ngIf="subscription.upfront !== ''">
+                                            Upfront: {{subscription.upfront}}
+                                        </div>
+                                        <div class="col-md-12" *ngIf="subscription.user.email !== ''">
+                                            <p>email: {{subscription.user.email}}</p>
+                                         </div>
                                 </div>
                                 <div class="row">
-                                    <table class="table table-striped">
-                                            <thead>
-                                                <th>Duration</th>
-                                                <th>Amout of Gs</th>
-                                                <th>Unit price</th>
-                                                <th>Price</th>
-                                            </thead>
-                                            <tbody>
-                                                <tr *ngFor="let plan of subscriptionsPlanSelected">
-                                                    <td>{{plan.month}} Months</td>
-                                                    <td>{{plan.amountGs}} Gs</td>
-                                                    <td>{{plan.unitPricePerGs}} Usd</td>
-                                                    <td>{{plan.amountPrice}} Usd</td>
-                                                    
-                                                </tr>
-                                                <tr>
-                                                    <td>Total</td>
-                                                    <td colspan="2"></td>
-                                                    <td>{{sumAmounts}}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                    <div class="col-md-12">
+                                        <app-subscription-info [subscription]="subscriptionsPlanSelected" [total]="sumAmounts"></app-subscription-info>
+                                    </div>
                                 </div>
                             </mat-card-content>
                                

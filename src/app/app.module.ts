@@ -33,11 +33,15 @@ import {
   TrinityRingsSpinnerModule
 } from 'angular-epic-spinners';
 import { SubscriptionProcessComponent } from './subscription-process/subscription-process.component';
+import { SubscriptionInfoComponent } from './subscription-info/subscription-info.component';
+import { SubscriptionPaymentInfoComponent } from './subscription-payment-info/subscription-payment-info.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SubscriptionProcessComponent,
+    SubscriptionInfoComponent,
+    SubscriptionPaymentInfoComponent,
   ],
   imports: [
     BrowserModule,
