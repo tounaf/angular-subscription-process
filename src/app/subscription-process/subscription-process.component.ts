@@ -1,10 +1,11 @@
 import { I18NHtmlParser } from '@angular/compiler';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SubscriptionSettingFormFactory } from "../factory/SubscriptionSettingFormFactory";
 import { ConfirmationFormFactory } from "../factory/ConfirmationFormFactory";
 import { PaymentFormFactory } from "../factory/PaymentFormFactory";
 import { SettingFormFactory } from "../factory/SettingFormFactory";
+import { MatHorizontalStepper } from "@angular/material/stepper";
 
 @Component({
   selector: 'app-subscription-process',
@@ -29,30 +30,15 @@ export class SubscriptionProcessComponent implements OnInit {
     }
   ];
 
-  subscriptionsPlanSelected: ClientSubscription[] = [];
-  payment: Payment = {
-    cardNumber: 0,
-    cardSecurityCode: 0,
-    cardExpiration: '',
-  }
+  subscriptionsPlanSelected: ClientSubscription[];
+  payment: Payment;
 
-  user: User = {email:''};
-  clientSubscription: ClientSubscription = {
-    amountGs: 0,
-    amountPrice: 0,
-    month: 0,
-    unitPricePerGs: 0
-  }
+  user: User;
+  clientSubscription: ClientSubscription;
   
-  subscription: Subscription = {
-    clientSubscriptions: this.subscriptionsPlanSelected,
-    upfront: '',
-    payment: this.payment,
-    user: this.user,
-  };
+  subscription: Subscription;
 
   sumAmounts = 0;
-  
   REMISE = 10;
 
   subscriptionStepFormGroup: FormGroup;
@@ -69,21 +55,48 @@ export class SubscriptionProcessComponent implements OnInit {
     private _subscriptionSettingFactory: SubscriptionSettingFormFactory,
     private _formBuilder: FormBuilder, 
   ) {
-    this.subscriptionStepFormGroup = _subscriptionSettingFactory.create();
-    this.confirmationStepFormGroup = _confirmationFactory.create();
-    this.paymentStepFormGroup = _paymentFactory.create();
-    this.settingsForm = _settingFactory.create();
+    
+    this.initializeForm();
+    this.initializeInformation();
    }
 
   ngOnInit(): void {
     this.addNewSubscription();
   }
   
-  initialize() {
+  initializeForm() {
     this.subscriptionStepFormGroup = this._subscriptionSettingFactory.create();
     this.confirmationStepFormGroup = this._confirmationFactory.create();
     this.paymentStepFormGroup = this._paymentFactory.create();
     this.settingsForm = this._settingFactory.create();
+  }
+
+  initializeInformation() {
+    this.sumAmounts = 0;
+
+    this.subscriptionsPlanSelected = [];
+    this.payment = {
+      cardNumber: 0,
+      cardSecurityCode: 0,
+      cardExpiration: '',
+    }
+  
+    this.user = {email:''};
+    this.clientSubscription = {
+      amountGs: 0,
+      amountPrice: 0,
+      month: 0,
+      unitPricePerGs: 0
+    }
+    
+    this.subscription = {
+      clientSubscriptions: this.subscriptionsPlanSelected,
+      upfront: '',
+      payment: this.payment,
+      user: this.user,
+    };
+
+    
   }
 
   get subscriptions() {
@@ -106,7 +119,7 @@ export class SubscriptionProcessComponent implements OnInit {
   }
 
   onSubmitSettingForm() {
-
+    console.log(this.settingsForm);
     this.subscriptionsPlanSelected = [];
     let sum = 0;
     this.settingsForm.value.subscriptions.forEach((i: any) => {
@@ -149,7 +162,17 @@ export class SubscriptionProcessComponent implements OnInit {
     }
 
     this.subscription.user = this.user;
-    this.initialize();
+    this.initializeForm();
+    this.addNewSubscription();
+  }
+
+  finalise() {
+    this.initializeInformation();
+  }
+
+  reset(stepper: MatHorizontalStepper) {
+    this.initializeInformation();
+    stepper.reset()
   }
 
 }
